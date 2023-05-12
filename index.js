@@ -9,6 +9,9 @@ dbConnection();
 //inicializa express
 const app = express();
 
+//lectura que viene en el body de una peticion http
+app.use(express.json());
+
 //node serve 
 const server = require('http').createServer(app);
 module.exports.io = require('socket.io')(server);
@@ -20,6 +23,11 @@ require('./sockets/sockets.js');
 //path public //apuntar a mi servidor
 const publicPath = path.resolve(__dirname,'public');
 app.use(express.static(publicPath));
+
+
+//Mis rutas
+app.use('/api/login', require('./routes/auth'))
+
 
 server.listen(process.env.PORT, (err)=>{
     if(err)throw new Error(err);
