@@ -18,3 +18,6 @@ para instalar nodemon como herramienta de desarrollo
    chat_user
    //password
    qhCPj7VjEc7Q67fR
+
+
+   npm run start:dev

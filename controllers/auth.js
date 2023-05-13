@@ -59,9 +59,10 @@ const login = async (req, res = response) => {
                 msg: 'El email no encontrado'
             });
         }
-     
+        
         //validar password
         const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+
         if(!validPassword){
             return res.status(400).json({
                 ok: false,
@@ -86,15 +87,19 @@ const login = async (req, res = response) => {
         })
         
     }
+}
 
+const validarJWT = async (req, res = response) => {
    
+    res.status(201).json({
+        ok: true,
+        uid: req.uid
+    })
 
 }
-//const login ... req, res
-//{ok: true
-// msg:login}
 
 module.exports = {
     crearUsuario,
-    login
+    login,
+    validarJWT
 }
