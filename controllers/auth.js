@@ -90,10 +90,16 @@ const login = async (req, res = response) => {
 }
 
 const validarJWT = async (req, res = response) => {
+
+    const uid = req.uid;
+    const token = await generarJWT(uid);
+    const user= await Usuario.findById(uid);
+
    
     res.status(201).json({
         ok: true,
-        uid: req.uid
+        user,
+        token
     })
 
 }
