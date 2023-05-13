@@ -1,19 +1,16 @@
 const { Router, response } = require('express');
 const Usuario = require('../models/usuario');
+const bcrypt = require('bcryptjs');
 
 const crearUsuario = async (req, res= response) => {
 
-    const { email } = req.body;
+    const { email, password } = req.body;
 
  
     try {
 
         const existeEmail =  await Usuario.findOne({ email });
 
-        console.log('============+++++++++++++++++++++++=============================');;
-        console.log(email);
-        console.log('============*++++++++++++++++++++++==========================');;
-    
         if(existeEmail){
             return res.status(400).json({
                 ok: false,
@@ -21,10 +18,12 @@ const crearUsuario = async (req, res= response) => {
             });
         }
         
-       
-
         const usuario = new Usuario(req.body);
-        await usuario.save()
+
+        //Encriptar contraseña
+        const salt = bcrypt.genSaltSync();
+        usuario.password = bcrypt.hashSync(password, salt);
+        await usuario.save();
 
         res.json({
             ok: true,
