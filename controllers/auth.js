@@ -2,7 +2,6 @@ const { Router, response } = require('express');
 const Usuario = require('../models/usuario');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
-const usuario = require('../models/usuario');
 
 const crearUsuario = async (req, res= response) => {
 
@@ -51,9 +50,9 @@ const login = async (req, res = response) => {
 
     try {
 
-        usuarioDB = await Usuario.findOne({email});
+        usuario = await Usuario.findOne({email});
 
-        if(!usuarioDB){
+        if(!usuario){
             return res.status(404).json({
                 ok: false,
                 msg: 'El email no encontrado'
@@ -61,7 +60,7 @@ const login = async (req, res = response) => {
         }
         
         //validar password
-        const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+        const validPassword = bcrypt.compareSync(password, usuario.password);
 
         if(!validPassword){
             return res.status(400).json({
@@ -70,11 +69,11 @@ const login = async (req, res = response) => {
             });
         }
 
-       const token = await generarJWT(usuarioDB.id);
+       const token = await generarJWT(usuario.id);
 
        res.json({
         ok: true,
-        usuarioDB,
+        usuario,
         token
         })
 
