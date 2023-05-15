@@ -1,4 +1,3 @@
-
 //Schema me ayuda a crear el modelo, 
 //model ver fuera del archivo
 const { Schema, model} = require('mongoose');
@@ -9,15 +8,18 @@ const UsuarioSchema = Schema({
         type: String,
         required: true,
     },
+
     email: {
         type: String, 
         required: true,
         unique: true
     },
+
     password: {
         type: String,
         required: true
     },
+    
     online: {
         type: Boolean,
         default: false

@@ -92,12 +92,12 @@ const validarJWT = async (req, res = response) => {
 
     const uid = req.uid;
     const token = await generarJWT(uid);
-    const user= await Usuario.findById(uid);
+    const usuario= await Usuario.findById(uid);
 
    
     res.status(201).json({
         ok: true,
-        user,
+        usuario,
         token
     })
 
