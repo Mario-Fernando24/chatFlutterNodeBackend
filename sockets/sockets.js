@@ -14,7 +14,23 @@ io.on('connect',  (client) => {
 
      usuarioConnectado(uid);
 
-    console.log('Cliente autentucado');
+     //ingresar al usuario a una sala especifica
+     //sola gloar (todos los dispositivos global)  
+     //client.id privado
+     //nombre de la sala
+      client.join(uid);
+   //   //cliente particular que yo le quiero mandar un mensaje
+   //   client.to(uid).emit('')
+
+   //ESCUCHAR DEL CLIENTE EL MENSAJE PERSONAL
+   client.on('mensaje-personal', (payload) => {
+       console.log('vallenatoooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+       console.log(payload);
+       console.log('vallenatoooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+   }); 
+
+
+    console.log('Cliente autenticado');
 
     client.on('disconnect',  () => { 
          usuarioDisconnect(uid);
