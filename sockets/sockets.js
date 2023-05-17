@@ -1,4 +1,4 @@
-const { usuarioDisconnect, usuarioConnectado } = require('../controllers/socket');
+const { usuarioDisconnect, usuarioConnectado, saveMessage } = require('../controllers/socket');
 const { comprobarJWT } = require('../helpers/jwt');
 const { io } = require('../index');
 const { emit } = require('nodemon');
@@ -23,8 +23,9 @@ io.on('connect',  (client) => {
    //   client.to(uid).emit('')
 
    //ESCUCHAR DEL CLIENTE EL MENSAJE PERSONAL
-   client.on('mensaje-personal', (payload) => {
+   client.on('mensaje-personal', async (payload) => {
        //enviar el sms a un canal, enviandoselo a esa persona de ese uid
+       await saveMessage(payload);
        io.to(payload.para).emit('mensaje-personal', payload); 
    }); 
 
