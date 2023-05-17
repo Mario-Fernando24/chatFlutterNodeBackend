@@ -22,11 +22,11 @@ const usuarioDisconnect = async ( uid= '') => {
 //grabar mensaje 
 const saveMessage = async (payload) => {
    
-
   try {
     
     const mensaje = new Mensaje(payload);
     await mensaje.save();
+
     return true;
     
   } catch (error) {

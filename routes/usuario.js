@@ -1,5 +1,5 @@
 /*
-   path:api/login
+   path:api/usuarios
 */
 const { Router } = require('express');
 const { check } =  require ('express-validator');
