@@ -24,16 +24,15 @@ io.on('connect',  (client) => {
 
    //ESCUCHAR DEL CLIENTE EL MENSAJE PERSONAL
    client.on('mensaje-personal', (payload) => {
-       console.log('vallenatoooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-       console.log(payload);
-       console.log('vallenatoooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+       //enviar el sms a un canal, enviandoselo a esa persona de ese uid
+       io.to(payload.para).emit('mensaje-personal', payload); 
    }); 
 
 
     console.log('Cliente autenticado');
 
     client.on('disconnect',  () => { 
-         usuarioDisconnect(uid);
+        usuarioDisconnect(uid);
         console.log("Cliente desconectado");
      });
   });
